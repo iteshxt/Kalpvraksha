@@ -1,6 +1,7 @@
 # Kalpvraksha - Holistic Wellness App
 
-A Flutter application for holistic wellness and meditation with AI assistance.
+A Flutter application for holistic wellness and meditation with AI assistance. 
+Built with love using Flutter framework.
 
 ## Features
 
