@@ -13,7 +13,6 @@ Built with love using Flutter framework.
 ## Tech Stack
 
 - Flutter for cross-platform mobile development
-- Gemini AI for natural language processing
 - YouTube API integration for video content
 - Cached Network Image for efficient media loading
 
