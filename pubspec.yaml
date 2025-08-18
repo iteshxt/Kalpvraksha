@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: ">=3.8.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,19 +30,38 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_generative_ai: ^0.2.0
-  flutter_dotenv: ^5.1.0
+  
+  # Core dependencies
   provider: ^6.1.1
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  cloud_firestore: ^4.13.6
+  google_sign_in: ^6.2.1  # For Google Sign-In
+  
+  # Voice functionality
+  audioplayers: ^5.2.0
+  web_socket_channel: ^2.4.0
+  permission_handler: ^11.0.1
+  path_provider: ^2.1.1
+  fl_chart: ^0.69.0
+  
+  # AI and network
+  google_generative_ai: ^0.2.0
   http: ^1.1.0
+  
+  # Image picker for profile photos
+  image_picker: ^1.0.4
+  flutter_dotenv: ^5.1.0
+  
+  # UI and utilities  
   url_launcher: ^6.1.12
   cached_network_image: ^3.3.0
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,6 +77,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/hands.png
+    - assets/counselling.png
+    - assets/slide3.png
+    - assets/slide4.png
+    - assets/Mental.png
     - hero.png
     - .env
 
@@ -67,3 +90,19 @@ flutter:
   uses-material-design: true
 
   # Roboto font configuration removed to fix build error
+
+# Flutter Launcher Icons configuration
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/kalpvraksha_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/kalpvraksha_icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/kalpvraksha_icon.png"
+    icon_size: 48 # min:48, max:256, default: 48

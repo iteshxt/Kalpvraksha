@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "344645667742",
+    "project_id": "kalpvraksha-29d2f",
+    "storage_bucket": "kalpvraksha-29d2f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344645667742:android:07dbbf2fbe0102e987248f",
+        "android_client_info": {
+          "package_name": "com.example.muktiya_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344645667742-ou6la3l1k2njrgrrmerca7ipve2b0o4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.muktiya_new",
+            "certificate_hash": "40d7fc520b501a328986fd1798f2d98e9f8925cd"
+          }
+        },
+        {
+          "client_id": "344645667742-4us99s5u3qqp5eu058pkf24q88pa5mcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_FuPS80kvRy-ImBcmQvrXN8Ef3y1vveI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344645667742-4us99s5u3qqp5eu058pkf24q88pa5mcl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

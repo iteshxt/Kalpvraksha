@@ -1,0 +1,5 @@
+# This file would contain the binary data of your icon image
+# Since I cannot directly save binary image data, you'll need to:
+# 1. Save the image you provided as 'kalpvraksha_icon.png' in the assets folder
+# 2. Make sure it's exactly 1024x1024 pixels for best results
+# 3. Then run the flutter_launcher_icons generator

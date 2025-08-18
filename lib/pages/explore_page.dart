@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:muktiya_new/pages/chatbot_page.dart';
-import 'package:muktiya_new/pages/home_page.dart'; 
+import 'package:muktiya_new/pages/home_page.dart';
+import 'package:muktiya_new/pages/wellness_consultant_page.dart';
+import 'package:muktiya_new/pages/voice_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:muktiya_new/services/youtube_service.dart'; // Import YouTube service
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,20 +15,21 @@ class ExplorePage extends StatefulWidget {
   State<ExplorePage> createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClientMixin {
+class _ExplorePageState extends State<ExplorePage>
+    with AutomaticKeepAliveClientMixin {
   int _selectedTab = 0; // Set to 0 for Explore tab
-  
+
   // Controllers and variables for video slider
   final PageController _videoPageController = PageController();
   Timer? _videoTimer;
   int _currentVideoPage = 0;
-  
+
   // YouTube service
   late YouTubeService _youtubeService;
-  
+
   // Loading state
   bool _loadingVideos = true;
-  
+
   // List for video data with thumbnails
   List<Map<String, dynamic>> _videoData = [];
 
@@ -39,25 +42,29 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
       'title': 'Natural Healing Wisdom',
       'author': 'Dr. Swatantra Jain',
       'coverImage': 'assets/hands.png',
-      'description': 'A comprehensive guide to natural healing methods and holistic health practices.',
+      'description':
+          'A comprehensive guide to natural healing methods and holistic health practices.',
     },
     {
       'title': 'Homeopathic Remedies',
       'author': 'Dr. Swatantra Jain',
       'coverImage': 'assets/hands.png',
-      'description': 'Discover effective homeopathic remedies for common ailments and chronic conditions.',
+      'description':
+          'Discover effective homeopathic remedies for common ailments and chronic conditions.',
     },
     {
       'title': 'Mind-Body Connection',
       'author': 'Dr. Swatantra Jain',
       'coverImage': 'assets/hands.png',
-      'description': 'Understanding the powerful connection between mental and physical health.',
+      'description':
+          'Understanding the powerful connection between mental and physical health.',
     },
     {
       'title': 'Meditation Techniques',
       'author': 'Dr. Swatantra Jain',
       'coverImage': 'assets/hands.png',
-      'description': 'Simple yet powerful meditation techniques for daily practice and spiritual growth.',
+      'description':
+          'Simple yet powerful meditation techniques for daily practice and spiritual growth.',
     },
   ];
 
@@ -66,7 +73,8 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
     {
       'title': 'Sun Bath: Athapa Snana',
       'videoId': 'nRvGvR9TM0Q', // YouTube video ID
-      'description': 'Learn the ancient practice of sun bathing for health benefits.',
+      'description':
+          'Learn the ancient practice of sun bathing for health benefits.',
     },
     {
       'title': 'Wet Wrap: Dr Jain\'s Method',
@@ -86,36 +94,37 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
     {
       'title': 'Meditation: As natural as your breath',
       'videoId': 'nl00xG4h1o0', // YouTube video ID
-      'description': 'Learn meditation techniques that flow as naturally as your breathing.',
+      'description':
+          'Learn meditation techniques that flow as naturally as your breathing.',
     },
   ];
 
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize YouTube service
     _youtubeService = YouTubeService();
-    
+
     // Fetch video thumbnails
     _fetchVideoThumbnails();
-    
+
     // Delay the auto-scrolling timer to allow the UI to settle first
     Future.delayed(Duration(seconds: 1), () {
       _initVideoTimer();
     });
   }
-  
+
   void _initVideoTimer() {
     _videoTimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (!mounted) return;
-      
+
       if (_currentVideoPage < videos.length - 1) {
         _currentVideoPage++;
       } else {
         _currentVideoPage = 0;
       }
-      
+
       if (_videoPageController.hasClients) {
         _videoPageController.animateToPage(
           _currentVideoPage,
@@ -148,8 +157,8 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFF0E6FF),  // Light lavender
-                  Color(0xFFE6D9FF),  // Slightly darker lavender
+                  Color(0xFFF0E6FF), // Light lavender
+                  Color(0xFFE6D9FF), // Slightly darker lavender
                 ],
               ),
               borderRadius: const BorderRadius.vertical(
@@ -168,7 +177,11 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.menu_book, size: 20, color: Color(0xFF4A2B5C)),
+                            Icon(
+                              Icons.menu_book,
+                              size: 20,
+                              color: Color(0xFF4A2B5C),
+                            ),
                             const SizedBox(width: 8),
                             Text(
                               'Explore',
@@ -209,7 +222,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
               ),
             ),
           ),
-          
+
           // Books section
           Expanded(
             child: SingleChildScrollView(
@@ -247,50 +260,59 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                         ],
                       ),
                     ),
-                    
+
                     // YouTube video carousel
                     Container(
                       height: 220,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: _loadingVideos 
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF8B4C9B)),
-                            ),
-                          )
-                        : PageView.builder(
-                            controller: _videoPageController,
-                            itemCount: _videoData.isNotEmpty ? _videoData.length : videos.length,
-                            onPageChanged: (index) {
-                              setState(() {
-                                _currentVideoPage = index;
-                              });
-                            },
-                            itemBuilder: (context, index) {
-                              final video = _videoData.isNotEmpty 
-                                ? _videoData[index] 
-                                : videos[index];
-                              return _buildVideoCard(video);
-                            },
-                          ),
+                      child:
+                          _loadingVideos
+                              ? Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFF8B4C9B),
+                                  ),
+                                ),
+                              )
+                              : PageView.builder(
+                                controller: _videoPageController,
+                                itemCount:
+                                    _videoData.isNotEmpty
+                                        ? _videoData.length
+                                        : videos.length,
+                                onPageChanged: (index) {
+                                  setState(() {
+                                    _currentVideoPage = index;
+                                  });
+                                },
+                                itemBuilder: (context, index) {
+                                  final video =
+                                      _videoData.isNotEmpty
+                                          ? _videoData[index]
+                                          : videos[index];
+                                  return _buildVideoCard(video);
+                                },
+                              ),
                     ),
-                    
+
                     // Video pagination dots
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          _videoData.length > 0 ? _videoData.length : videos.length,
+                          _videoData.length > 0
+                              ? _videoData.length
+                              : videos.length,
                           (index) => _buildDot(index, _currentVideoPage),
                         ),
                       ),
                     ),
-                    
+
                     const SizedBox(height: 32),
-                    
+
                     // Books section (moved below Transform Yourself)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -320,7 +342,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                         ],
                       ),
                     ),
-                    
+
                     // Horizontal scrollable book list
                     SizedBox(
                       height: 220,
@@ -333,9 +355,9 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                         },
                       ),
                     ),
-                    
+
                     const SizedBox(height: 32),
-                    
+
                     // Featured book section
                     Text(
                       'Featured Book',
@@ -347,9 +369,9 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                     ),
                     const SizedBox(height: 16),
                     _buildFeaturedBook(books[0]),
-                    
+
                     const SizedBox(height: 32),
-                    
+
                     // New releases section
                     Text(
                       'New Releases',
@@ -360,7 +382,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                       ),
                     ),
                     const SizedBox(height: 16),
-                    
+
                     // Vertically stacked book list
                     ListView.builder(
                       shrinkWrap: true,
@@ -371,7 +393,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                         return _buildBookListItem(book);
                       },
                     ),
-                    
+
                     const SizedBox(height: 16),
                   ],
                 ),
@@ -417,6 +439,32 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                 onTap: () => setState(() => _selectedTab = 0),
               ),
               _buildTabItem(
+                icon: Icons.healing,
+                label: 'Consultant',
+                isSelected: _selectedTab == 2,
+                onTap: () {
+                  setState(() => _selectedTab = 2);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WellnessConsultantPage(),
+                    ),
+                  );
+                },
+              ),
+              _buildTabItem(
+                icon: Icons.mic_outlined,
+                label: 'Voice',
+                isSelected: _selectedTab == 4,
+                onTap: () {
+                  setState(() => _selectedTab = 4);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const VoicePage()),
+                  );
+                },
+              ),
+              _buildTabItem(
                 icon: Icons.chat_bubble_outline,
                 label: 'Chat',
                 isSelected: _selectedTab == 3,
@@ -424,7 +472,9 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                   setState(() => _selectedTab = 3);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ChatbotPage()),
+                    MaterialPageRoute(
+                      builder: (context) => const ChatbotPage(),
+                    ),
                   );
                 },
               ),
@@ -509,10 +559,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
       decoration: BoxDecoration(
         color: Color(0xFFF0E6FF).withOpacity(0.5),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Color(0xFF8B4C9B).withOpacity(0.1),
-          width: 1,
-        ),
+        border: Border.all(color: Color(0xFF8B4C9B).withOpacity(0.1), width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -710,6 +757,8 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
         return Icons.home;
       case Icons.water_drop:
         return Icons.water_drop;
+      case Icons.healing:
+        return Icons.healing;
       case Icons.chat_bubble_outline:
         return Icons.chat_bubble;
       default:
@@ -730,11 +779,11 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
         print('URL launcher plugin error: $e');
         canLaunch = false;
       }
-      
+
       if (!canLaunch) {
         // Fallback for web or when plugin isn't available
         print('Could not launch $url, showing dialog instead');
-        
+
         // Show a dialog instead
         showDialog(
           context: context,
@@ -788,44 +837,43 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
     try {
       final String youtubeUrl = 'https://www.youtube.com/watch?v=$videoId';
       final Uri uri = Uri.parse(youtubeUrl);
-      
+
       // First attempt: Launch directly without confirmation dialog
-      launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      ).then((success) {
-        if (!success) {
-          // Fallback to showing alert
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Opening video in browser...'),
-              duration: Duration(seconds: 2),
-            )
-          );
-          
-          // Try again with inAppWebView mode as fallback
-          launchUrl(
-            uri,
-            mode: LaunchMode.inAppWebView,
-          ).catchError((error) {
+      launchUrl(uri, mode: LaunchMode.externalApplication)
+          .then((success) {
+            if (!success) {
+              // Fallback to showing alert
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Opening video in browser...'),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+
+              // Try again with inAppWebView mode as fallback
+              launchUrl(uri, mode: LaunchMode.inAppWebView).catchError((error) {
+                print('Error opening YouTube URL: $error');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Could not open video. Please try again later.',
+                    ),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return false;
+              });
+            }
+          })
+          .catchError((error) {
             print('Error opening YouTube URL: $error');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Could not open video. Please try again later.'),
+                content: Text('Could not open video. Please try again.'),
                 backgroundColor: Colors.red,
-              )
+              ),
             );
           });
-        }
-      }).catchError((error) {
-        print('Error opening YouTube URL: $error');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Could not open video. Please try again.'),
-            backgroundColor: Colors.red,
-          )
-        );
-      });
     } catch (e) {
       print('General error launching YouTube: $e');
     }
@@ -833,8 +881,11 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
 
   // Video card for YouTube videos - updated to use actual YouTube thumbnails
   Widget _buildVideoCard(Map<String, dynamic> video) {
-    final bool hasThumbnail = video.containsKey('thumbnailUrl') && video['thumbnailUrl'] != null && video['thumbnailUrl'].isNotEmpty;
-    
+    final bool hasThumbnail =
+        video.containsKey('thumbnailUrl') &&
+        video['thumbnailUrl'] != null &&
+        video['thumbnailUrl'].isNotEmpty;
+
     return GestureDetector(
       onTap: () {
         _launchYouTubeVideo(video['videoId']);
@@ -865,42 +916,55 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8),
                     ),
-                    child: hasThumbnail
-                        ? CachedNetworkImage(
-                            imageUrl: video['thumbnailUrl'],
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFFF0E6FF),  // Light lavender
-                                    Color(0xFFE6D9FF),  // Slightly darker lavender
-                                  ],
-                                ),
-                              ),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF8B4C9B)),
-                                ),
-                              ),
-                            ),
-                            errorWidget: (context, url, error) {
-                              // If high quality thumbnail fails, try medium quality
-                              if (url.contains('hqdefault')) {
-                                return CachedNetworkImage(
-                                  imageUrl: _youtubeService.getYouTubeThumbnailUrl(video['videoId'], quality: 'mq'),
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) => _buildVideoErrorPlaceholder(video),
-                                );
-                              }
-                              return _buildVideoErrorPlaceholder(video);
-                            },
-                          )
-                        : _buildVideoErrorPlaceholder(video),
+                    child:
+                        hasThumbnail
+                            ? CachedNetworkImage(
+                              imageUrl: video['thumbnailUrl'],
+                              fit: BoxFit.cover,
+                              placeholder:
+                                  (context, url) => Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Color(0xFFF0E6FF), // Light lavender
+                                          Color(
+                                            0xFFE6D9FF,
+                                          ), // Slightly darker lavender
+                                        ],
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                              Color(0xFF8B4C9B),
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                              errorWidget: (context, url, error) {
+                                // If high quality thumbnail fails, try medium quality
+                                if (url.contains('hqdefault')) {
+                                  return CachedNetworkImage(
+                                    imageUrl: _youtubeService
+                                        .getYouTubeThumbnailUrl(
+                                          video['videoId'],
+                                          quality: 'mq',
+                                        ),
+                                    fit: BoxFit.cover,
+                                    errorWidget:
+                                        (context, url, error) =>
+                                            _buildVideoErrorPlaceholder(video),
+                                  );
+                                }
+                                return _buildVideoErrorPlaceholder(video);
+                              },
+                            )
+                            : _buildVideoErrorPlaceholder(video),
                   ),
-                  
+
                   // Dark overlay for better text visibility
                   Positioned.fill(
                     child: Container(
@@ -916,7 +980,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                       ),
                     ),
                   ),
-                  
+
                   // Title overlay at top
                   Positioned(
                     top: 0,
@@ -943,14 +1007,19 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                       ),
                     ),
                   ),
-                  
+
                   // Author/channel name if available
-                  if (video.containsKey('author') && video['author'] != null && video['author'].toString().isNotEmpty)
+                  if (video.containsKey('author') &&
+                      video['author'] != null &&
+                      video['author'].toString().isNotEmpty)
                     Positioned(
                       top: 60,
                       left: 12,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(4),
@@ -967,7 +1036,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                         ),
                       ),
                     ),
-                  
+
                   // Play button overlay in center
                   Center(
                     child: Container(
@@ -985,12 +1054,16 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                     ),
                   ),
                   // Add duration badge if available
-                  if (video.containsKey('duration') && video['duration'] != null)
+                  if (video.containsKey('duration') &&
+                      video['duration'] != null)
                     Positioned(
                       bottom: 12,
                       right: 12,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.7),
                           borderRadius: BorderRadius.circular(4),
@@ -1008,7 +1081,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                 ],
               ),
             ),
-            
+
             // "Watch on YouTube" banner at bottom
             Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -1031,11 +1104,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
                     ),
                   ),
                   SizedBox(width: 6),
-                  Icon(
-                    Icons.play_circle_filled,
-                    color: Colors.red,
-                    size: 18,
-                  ),
+                  Icon(Icons.play_circle_filled, color: Colors.red, size: 18),
                   SizedBox(width: 4),
                   Text(
                     'YouTube',
@@ -1079,7 +1148,10 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
       height: 8,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: currentIndex == index ? Color(0xFF8B4C9B) : Color(0xFF8B4C9B).withOpacity(0.3),
+        color:
+            currentIndex == index
+                ? Color(0xFF8B4C9B)
+                : Color(0xFF8B4C9B).withOpacity(0.3),
       ),
     );
   }
@@ -1089,14 +1161,17 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
     setState(() {
       _loadingVideos = true;
     });
-    
+
     try {
       // Extract video IDs from the videos list
-      final List<String> videoIds = videos.map<String>((video) => video['videoId'] as String).toList();
-      
+      final List<String> videoIds =
+          videos.map<String>((video) => video['videoId'] as String).toList();
+
       // Fetch video details including thumbnails
-      final videoDetails = await _youtubeService.getMultipleVideoDetails(videoIds);
-      
+      final videoDetails = await _youtubeService.getMultipleVideoDetails(
+        videoIds,
+      );
+
       if (mounted) {
         setState(() {
           _videoData = videoDetails;
@@ -1105,18 +1180,23 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
       }
     } catch (e) {
       print('Error fetching video thumbnails: $e');
-      
+
       if (mounted) {
         setState(() {
           // If there's an error, create a basic video data set with thumbnail URLs
-          _videoData = videos.map((video) {
-            final String videoId = video['videoId'] as String;
-            return {
-              ...video,
-              'thumbnailUrl': _youtubeService.getYouTubeThumbnailUrl(videoId, quality: 'maxres'),
-              'author': 'Dr. Swatantra Jain',  // Default author when data isn't available
-            };
-          }).toList();
+          _videoData =
+              videos.map((video) {
+                final String videoId = video['videoId'] as String;
+                return {
+                  ...video,
+                  'thumbnailUrl': _youtubeService.getYouTubeThumbnailUrl(
+                    videoId,
+                    quality: 'maxres',
+                  ),
+                  'author':
+                      'Dr. Swatantra Jain', // Default author when data isn't available
+                };
+              }).toList();
           _loadingVideos = false;
         });
       }
@@ -1131,8 +1211,8 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFF0E6FF),  // Light lavender
-            Color(0xFFE6D9FF),  // Slightly darker lavender
+            Color(0xFFF0E6FF), // Light lavender
+            Color(0xFFE6D9FF), // Slightly darker lavender
           ],
         ),
       ),
@@ -1166,7 +1246,7 @@ class _ExplorePageState extends State<ExplorePage> with AutomaticKeepAliveClient
   // Format duration for display
   String _formatDuration(Duration? duration) {
     if (duration == null) return '';
-    
+
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
