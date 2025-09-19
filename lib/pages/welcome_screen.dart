@@ -23,13 +23,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       'illustration': 'assets/counselling.png',
     },
     {
-      'title': 'Love Yourself',
-      'subtitle': '',
-      'description':
-          'You yourself, as much as anybody in the entire universe, deserve your love and affection.',
-      'illustration': 'assets/slide3.png',
-    },
-    {
       'title': 'We\'re here.',
       'subtitle': 'Find your path.',
       'description': '',

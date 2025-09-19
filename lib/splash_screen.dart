@@ -369,7 +369,7 @@ class _SplashScreenState extends State<SplashScreen>
                                 colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
                               ).createShader(bounds),
                               child: const Text(
-                                'Kalpvraksha',
+                                'Dr.Swatantra AI',
                                 style: TextStyle(
                                   fontSize: 36,
                                   fontWeight: FontWeight.w300,

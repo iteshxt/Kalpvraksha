@@ -5,6 +5,7 @@ import 'pages/explore_page.dart';
 import 'pages/voice_page.dart';
 import 'pages/chatbot_page.dart';
 import 'pages/profile_page.dart';
+import 'services/voice_assistant_service.dart';
 
 class MainNavigation extends StatefulWidget {
   final int initialIndex;
@@ -21,6 +22,7 @@ class _MainNavigationState extends State<MainNavigation>
   late AnimationController _voiceAnimationController;
   late Animation<double> _voiceScaleAnimation;
   late Animation<double> _voicePulseAnimation;
+  final VoiceAssistantService _voiceService = VoiceAssistantService();
 
   @override
   void initState() {
@@ -53,10 +55,10 @@ class _MainNavigationState extends State<MainNavigation>
     super.dispose();
   }
 
-  final List<Widget> _pages = [
+  List<Widget> get _pages => [
     const HomePage(),
     const ExplorePage(),
-    const VoicePage(),
+    VoicePage(voiceService: _voiceService),
     const ChatbotPage(),
     const ProfilePage(),
   ];
@@ -84,15 +86,15 @@ class _MainNavigationState extends State<MainNavigation>
         children: [
           // Enhanced Glassmorphism Navigation Bar
           Container(
-            height: 65,
+            height: 85,
             margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(22),
+              borderRadius: BorderRadius.circular(30),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(22),
+                    borderRadius: BorderRadius.circular(30),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -138,7 +140,7 @@ class _MainNavigationState extends State<MainNavigation>
                         index: 1,
                       ),
                       const SizedBox(
-                        width: 55,
+                        width: 70,
                       ), // Space for floating voice button
                       _buildTabItem(
                         icon: Icons.chat_bubble_rounded,
@@ -159,8 +161,8 @@ class _MainNavigationState extends State<MainNavigation>
 
           // Floating Voice Button (unchanged)
           Positioned(
-            left: MediaQuery.of(context).size.width / 2 - 27.5,
-            top: -8,
+            left: MediaQuery.of(context).size.width / 2 - 30,
+            top: -5,
             child: AnimatedBuilder(
               animation: _voiceAnimationController,
               builder: (context, child) {
@@ -171,8 +173,8 @@ class _MainNavigationState extends State<MainNavigation>
                   child: GestureDetector(
                     onTap: () => _onItemTapped(2),
                     child: Container(
-                      width: 55,
-                      height: 55,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -206,7 +208,7 @@ class _MainNavigationState extends State<MainNavigation>
                         ],
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(27.5),
+                        borderRadius: BorderRadius.circular(30),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                           child: Container(
@@ -230,7 +232,7 @@ class _MainNavigationState extends State<MainNavigation>
                                   ? Icons.graphic_eq_rounded
                                   : Icons.radio_button_checked_rounded,
                               color: Colors.white,
-                              size: 24,
+                              size: 20,
                             ),
                           ),
                         ),
@@ -258,9 +260,9 @@ class _MainNavigationState extends State<MainNavigation>
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(20),
           color: isSelected
               ? const Color(0xFF6C63FF).withOpacity(0.12)
               : Colors.transparent,
@@ -278,17 +280,17 @@ class _MainNavigationState extends State<MainNavigation>
               duration: const Duration(milliseconds: 300),
               child: Icon(
                 icon,
-                size: isSelected ? 22 : 20,
+                size: isSelected ? 28 : 26,
                 color: isSelected
                     ? const Color(0xFF6C63FF)
                     : Colors.grey.shade600,
               ),
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 5),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 300),
               style: TextStyle(
-                fontSize: 9,
+                fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 color: isSelected
                     ? const Color(0xFF6C63FF)

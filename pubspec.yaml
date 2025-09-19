@@ -32,6 +32,7 @@ dependencies:
   # AI and network
   google_generative_ai: ^0.4.7
   http: ^1.1.0
+  flutter_dotenv: ^5.1.0
   
   # Image picker for profile photos
   image_picker: ^1.0.4
@@ -57,6 +58,10 @@ flutter:
     - assets/slide4.png
     - assets/Mental.png
     - hero.png
+    - .env
+    - assets/deviahilya.png
+    - assets/swatantra_ai_book.png
+    - assets/universal_prosperity.png
 
 # Flutter Launcher Icons configuration
 flutter_launcher_icons:

@@ -129,12 +129,12 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 16), // Reduced from 40 to 20
 
               // Main Card Container with enhanced lighting
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(32),
+                padding: const EdgeInsets.all(24), // Reduced from 32 to 24
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
@@ -201,7 +201,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
 
                     // Welcome Text
                     const Text(
@@ -218,7 +218,7 @@ class _SignupPageState extends State<SignupPage> {
                     const Text(
                       'Sign Up, its free',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         color: Colors.black54, // Changed to match app theme
                       ),
                     ),
@@ -253,7 +253,7 @@ class _SignupPageState extends State<SignupPage> {
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -264,7 +264,7 @@ class _SignupPageState extends State<SignupPage> {
                       child: TextField(
                         controller: _nameController,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.black87, // Changed to match app theme
                         ),
                         decoration: InputDecoration(
@@ -291,20 +291,20 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
+                            horizontal: 16,
+                            vertical: 12,
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
 
                     // Email Field
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -316,7 +316,7 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.black87, // Changed to match app theme
                         ),
                         decoration: InputDecoration(
@@ -343,20 +343,20 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
+                            horizontal: 16,
+                            vertical: 12,
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
 
                     // Password Field
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -368,7 +368,7 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _passwordController,
                         obscureText: _obscurePassword,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.black87, // Changed to match app theme
                         ),
                         decoration: InputDecoration(
@@ -409,20 +409,20 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
+                            horizontal: 16,
+                            vertical: 12,
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
 
                     // Confirm Password Field
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -434,7 +434,7 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _confirmPasswordController,
                         obscureText: _obscureConfirmPassword,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.black87, // Changed to match app theme
                         ),
                         decoration: InputDecoration(
@@ -476,8 +476,8 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
+                            horizontal: 16,
+                            vertical: 12,
                           ),
                         ),
                       ),
@@ -488,7 +488,7 @@ class _SignupPageState extends State<SignupPage> {
                     // Sign Up Button
                     SizedBox(
                       width: double.infinity,
-                      height: 56,
+                      height: 48,
                       child: ElevatedButton(
                         onPressed: _isLoading ? null : _signUpWithEmail,
                         style: ElevatedButton.styleFrom(
@@ -497,7 +497,7 @@ class _SignupPageState extends State<SignupPage> {
                           foregroundColor: Colors.white,
                           elevation: 0, // Removed shadow to match app theme
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         child: _isLoading
@@ -521,7 +521,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
 
                     // OR Divider
                     Row(
@@ -557,12 +557,12 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
 
                     // Google Sign Up Button
                     SizedBox(
                       width: double.infinity,
-                      height: 56,
+                      height: 48,
                       child: OutlinedButton(
                         onPressed: _isLoading ? null : _signUpWithGoogle,
                         style: OutlinedButton.styleFrom(
@@ -573,7 +573,7 @@ class _SignupPageState extends State<SignupPage> {
                             width: 1.5,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           backgroundColor: Colors.white,
                         ),
@@ -597,7 +597,7 @@ class _SignupPageState extends State<SignupPage> {
                             const Text(
                               'Continue with Google',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: Colors
                                     .black87, // Changed to match app theme
@@ -618,7 +618,7 @@ class _SignupPageState extends State<SignupPage> {
                           'Already have an account? ',
                           style: TextStyle(
                             color: Colors.black54, // Changed to match app theme
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                         GestureDetector(
@@ -635,7 +635,7 @@ class _SignupPageState extends State<SignupPage> {
                             style: TextStyle(
                               color:
                                   Colors.black87, // Changed to match app theme
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

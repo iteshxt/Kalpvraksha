@@ -366,15 +366,15 @@ Keep the tone warm, supportive, and empowering.
         children: [
           // Enhanced Glassmorphism Navigation Bar
           Container(
-            height: 65,
+            height: 85,
             margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(22),
+              borderRadius: BorderRadius.circular(30),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(22),
+                    borderRadius: BorderRadius.circular(30),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -420,7 +420,7 @@ Keep the tone warm, supportive, and empowering.
                         index: 1,
                       ),
                       const SizedBox(
-                        width: 55,
+                        width: 70,
                       ), // Space for floating voice button
                       _buildTabItem(
                         icon: Icons.chat_bubble_rounded,
@@ -441,8 +441,8 @@ Keep the tone warm, supportive, and empowering.
 
           // Floating Voice Button
           Positioned(
-            left: MediaQuery.of(context).size.width / 2 - 27.5,
-            top: -8,
+            left: MediaQuery.of(context).size.width / 2 - 35,
+            top: -15,
             child: AnimatedBuilder(
               animation: _voiceAnimationController,
               builder: (context, child) {
@@ -453,8 +453,8 @@ Keep the tone warm, supportive, and empowering.
                   child: GestureDetector(
                     onTap: () => _onItemTapped(2),
                     child: Container(
-                      width: 55,
-                      height: 55,
+                      width: 70,
+                      height: 70,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -488,7 +488,7 @@ Keep the tone warm, supportive, and empowering.
                         ],
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(27.5),
+                        borderRadius: BorderRadius.circular(35),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                           child: Container(
@@ -512,7 +512,7 @@ Keep the tone warm, supportive, and empowering.
                                   ? Icons.graphic_eq_rounded
                                   : Icons.radio_button_checked_rounded,
                               color: Colors.white,
-                              size: 24,
+                              size: 30,
                             ),
                           ),
                         ),
@@ -540,9 +540,9 @@ Keep the tone warm, supportive, and empowering.
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(20),
           color: isSelected
               ? Colors.black.withOpacity(0.8)
               : Colors.transparent,
@@ -554,17 +554,17 @@ Keep the tone warm, supportive, and empowering.
               duration: const Duration(milliseconds: 300),
               child: Icon(
                 icon,
-                size: isSelected ? 22 : 20,
+                size: isSelected ? 28 : 26,
                 color: isSelected
                     ? Colors.white
                     : Colors.white.withOpacity(0.7),
               ),
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 5),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 300),
               style: TextStyle(
-                fontSize: 9,
+                fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 color: isSelected
                     ? Colors.white
@@ -772,7 +772,7 @@ Keep the tone warm, supportive, and empowering.
         16,
         16,
         16,
-        65,
+        85,
       ), // Added bottom padding for nav bar
       decoration: BoxDecoration(
         color: Colors.white,

@@ -112,12 +112,12 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 60),
+              const SizedBox(height: 20), // Reduced from 60 to 20
 
               // Main Card Container
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(32),
+                padding: const EdgeInsets.all(24), // Reduced from 32 to 24
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
@@ -240,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -252,47 +252,47 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14, // Reduced from 16 to 14
                           color: Colors.black87, // Changed to match app theme
                         ),
                         decoration: InputDecoration(
                           labelText: 'Email',
                           labelStyle: const TextStyle(
                             color: Colors.black54, // Changed to match app theme
-                            fontSize: 14,
+                            fontSize: 12, // Reduced from 14 to 12
                           ),
                           prefixIcon: Container(
-                            margin: const EdgeInsets.all(12),
-                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.all(8), // Reduced from 12 to 8
+                            padding: const EdgeInsets.all(6), // Reduced from 8 to 6
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(
                                 0.05,
                               ), // Changed to match app theme
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(8), // Reduced from 10 to 8
                             ),
                             child: const Icon(
                               Icons.email_outlined,
                               color:
                                   Colors.black87, // Changed to match app theme
-                              size: 20,
+                              size: 18, // Reduced from 20 to 18
                             ),
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
+                            horizontal: 16, // Reduced from 20 to 16
+                            vertical: 12, // Reduced from 16 to 12
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16), // Reduced from 20 to 16
 
                     // Password Field
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -304,29 +304,29 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _passwordController,
                         obscureText: _obscurePassword,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14, // Reduced from 16 to 14
                           color: Colors.black87, // Changed to match app theme
                         ),
                         decoration: InputDecoration(
                           labelText: 'Password',
                           labelStyle: const TextStyle(
                             color: Colors.black54, // Changed to match app theme
-                            fontSize: 14,
+                            fontSize: 12, // Reduced from 14 to 12
                           ),
                           prefixIcon: Container(
-                            margin: const EdgeInsets.all(12),
-                            padding: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.all(8), // Reduced from 12 to 8
+                            padding: const EdgeInsets.all(6), // Reduced from 8 to 6
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(
                                 0.05,
                               ), // Changed to match app theme
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(8), // Reduced from 10 to 8
                             ),
                             child: const Icon(
                               Icons.lock_outline,
                               color:
                                   Colors.black87, // Changed to match app theme
-                              size: 20,
+                              size: 18, // Reduced from 20 to 18
                             ),
                           ),
                           suffixIcon: IconButton(
@@ -341,12 +341,13 @@ class _LoginPageState extends State<LoginPage> {
                                   : Icons.visibility_off_outlined,
                               color:
                                   Colors.black54, // Changed to match app theme
+                              size: 18, // Added smaller size for consistency
                             ),
                           ),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
+                            horizontal: 16, // Reduced from 20 to 16
+                            vertical: 12, // Reduced from 16 to 12
                           ),
                         ),
                       ),
@@ -377,12 +378,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 20), // Reduced from 24 to 20
 
                     // Sign In Button
                     SizedBox(
                       width: double.infinity,
-                      height: 56,
+                      height: 48, // Reduced from 56 to 48
                       child: ElevatedButton(
                         onPressed: _isLoading ? null : _signInWithEmail,
                         style: ElevatedButton.styleFrom(
@@ -391,13 +392,13 @@ class _LoginPageState extends State<LoginPage> {
                           foregroundColor: Colors.white,
                           elevation: 0, // Removed shadow to match app theme
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
                           ),
                         ),
                         child: _isLoading
                             ? const SizedBox(
-                                width: 24,
-                                height: 24,
+                                width: 20, // Reduced from 24 to 20
+                                height: 20, // Reduced from 24 to 20
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
                                   valueColor: AlwaysStoppedAnimation<Color>(
@@ -451,12 +452,12 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 20), // Reduced from 24 to 20
 
                     // Google Sign In Button
                     SizedBox(
                       width: double.infinity,
-                      height: 56,
+                      height: 48, // Reduced from 56 to 48
                       child: OutlinedButton(
                         onPressed: _isLoading ? null : _signInWithGoogle,
                         style: OutlinedButton.styleFrom(
@@ -467,7 +468,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: 1.5,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
                           ),
                           backgroundColor: Colors.white,
                         ),
@@ -476,22 +477,22 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Image.asset(
                               'assets/google_icon.png',
-                              width: 24,
-                              height: 24,
+                              width: 20, // Reduced from 24 to 20
+                              height: 20, // Reduced from 24 to 20
                               errorBuilder: (context, error, stackTrace) {
                                 return const Icon(
                                   Icons.g_mobiledata,
                                   color: Colors
                                       .black87, // Changed to match app theme
-                                  size: 24,
+                                  size: 20, // Reduced from 24 to 20
                                 );
                               },
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 10), // Reduced from 12 to 10
                             const Text(
                               'Continue with Google',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14, // Reduced from 16 to 14
                                 fontWeight: FontWeight.w600,
                                 color: Colors
                                     .black87, // Changed to match app theme
@@ -502,7 +503,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24), // Reduced from 32 to 24
 
                     // Sign Up Link
                     Row(
