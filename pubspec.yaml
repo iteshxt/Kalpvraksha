@@ -1,0 +1,75 @@
+name: muktiya_new
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.2.2
+  
+  # Core dependencies
+  provider: ^6.1.1
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  cloud_firestore: ^4.13.6
+  google_sign_in: ^6.2.1
+  
+  # Voice functionality
+  audioplayers: ^6.1.0
+  web_socket_channel: ^3.0.3
+  permission_handler: ^12.0.1
+  path_provider: ^2.1.1
+  speech_to_text: ^7.3.0
+  flutter_tts: ^4.0.2
+
+  
+  # AI and network
+  google_generative_ai: ^0.4.7
+  http: ^1.1.0
+  
+  # Image picker for profile photos
+  image_picker: ^1.0.4
+  
+  # UI and utilities  
+  url_launcher: ^6.1.12
+  cached_network_image: ^3.3.0
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/hands.png
+    - assets/counselling.png
+    - assets/slide3.png
+    - assets/slide4.png
+    - assets/Mental.png
+    - hero.png
+
+# Flutter Launcher Icons configuration
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/kalpvraksha_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/kalpvraksha_icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/kalpvraksha_icon.png"
+    icon_size: 48
