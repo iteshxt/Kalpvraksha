@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/auth_service.dart';
-import '../pages/welcome_screen.dart';
+import '../pages/auth/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -136,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   if (mounted) {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen(),
+                        builder: (context) => const LoginPage(),
                       ),
                       (route) => false,
                     );
