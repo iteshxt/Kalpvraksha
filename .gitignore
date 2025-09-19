@@ -115,3 +115,6 @@ android/
 linux/
 ios/
 macOS/
+node_modules/
+web/
+windows/
