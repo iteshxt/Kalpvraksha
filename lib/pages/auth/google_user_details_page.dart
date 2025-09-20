@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../main_navigation.dart';
+import '../../services/auth_service.dart';
 
 class GoogleUserDetailsPage extends StatefulWidget {
   final User user;
@@ -20,6 +21,7 @@ class _GoogleUserDetailsPageState extends State<GoogleUserDetailsPage> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   bool _isLoading = false;
   String _errorMessage = '';
@@ -71,10 +73,11 @@ class _GoogleUserDetailsPageState extends State<GoogleUserDetailsPage> {
     });
 
     try {
-      // Update display name with the entered information
+      // Update display name with the entered information using robust method
       final fullName =
           '${_firstNameController.text.trim()} ${_lastNameController.text.trim()}';
-      await widget.user.updateDisplayName(fullName);
+      print("🔄 Setting display name to: $fullName");
+      await _authService.updateUserDisplayName(fullName);
 
       // Store additional user data in Firebase (you can extend this to use Firestore)
       // For now, we'll just use the display name

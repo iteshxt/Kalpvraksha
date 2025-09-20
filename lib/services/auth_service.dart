@@ -59,28 +59,36 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       throw e;
     } catch (e) {
-      // Special handling for the type casting error from Flutter plugin
+      // Special handling for type casting errors from Flutter plugin
       if (e.toString().contains("List<Object?>") &&
-          e.toString().contains("PigeonUserDetails")) {
+          (e.toString().contains("PigeonUserDetails") || 
+           e.toString().contains("PigeonUserInfo") ||
+           e.toString().contains("subtype"))) {
+        print("🔧 Handling type casting error: ${e.toString()}");
+        
         // Wait a bit for Firebase to update
         await Future.delayed(const Duration(milliseconds: 800));
 
         // Check if user was actually created
         User? currentUser = _auth.currentUser;
         if (currentUser != null && currentUser.email == email) {
+          print("✅ User created successfully despite type error");
           // Return a working UserCredential wrapper
           return SimpleUserCredential(currentUser);
         } else {
-          throw Exception("Registration failed: ${e.toString()}");
+          throw Exception("Registration failed: User not found after creation");
         }
       }
 
       // For other errors, check if user was still created
+      print("🔍 Checking if user was created despite error: ${e.toString()}");
       await Future.delayed(const Duration(milliseconds: 500));
       if (_auth.currentUser != null && _auth.currentUser!.email == email) {
+        print("✅ User found after error, returning success");
         return SimpleUserCredential(_auth.currentUser!);
       }
 
+      print("❌ Registration failed: ${e.toString()}");
       throw e;
     }
   }
@@ -314,6 +322,68 @@ class AuthService {
       print("User signed out successfully");
     } catch (e) {
       print("Sign-out error: $e");
+    }
+  }
+
+  // Robust display name update with retry logic
+  Future<bool> updateUserDisplayName(String displayName) async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        print("❌ No current user found for display name update");
+        return false;
+      }
+
+      print("🔄 Attempting to update display name to: $displayName");
+
+      // First attempt
+      try {
+        await user.updateDisplayName(displayName);
+        await user.reload();
+        print("✅ Display name updated successfully");
+        return true;
+      } catch (e) {
+        print("⚠️ First attempt failed: ${e.toString()}");
+        
+        // Check if it's a type casting error
+        if (e.toString().contains("List<Object?>") && 
+            (e.toString().contains("PigeonUserInfo") || 
+             e.toString().contains("PigeonUserDetails"))) {
+          print("🔧 Type casting error detected, trying retry...");
+          
+          // Wait and retry
+          await Future.delayed(const Duration(milliseconds: 1000));
+          
+          try {
+            await user.updateDisplayName(displayName);
+            await user.reload();
+            print("✅ Display name updated successfully on retry");
+            return true;
+          } catch (retryError) {
+            print("⚠️ Retry also failed: ${retryError.toString()}");
+            
+            // Final attempt with longer delay
+            await Future.delayed(const Duration(milliseconds: 2000));
+            
+            try {
+              await user.updateDisplayName(displayName);
+              await user.reload();
+              print("✅ Display name updated successfully on final attempt");
+              return true;
+            } catch (finalError) {
+              print("❌ All attempts failed: ${finalError.toString()}");
+              return false;
+            }
+          }
+        } else {
+          // For non-type-casting errors, just fail
+          print("❌ Non-type-casting error: ${e.toString()}");
+          return false;
+        }
+      }
+    } catch (e) {
+      print("❌ Unexpected error in updateUserDisplayName: ${e.toString()}");
+      return false;
     }
   }
 

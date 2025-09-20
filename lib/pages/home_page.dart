@@ -851,6 +851,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _refreshUserData();
     _loadDailyQuotes();
     _loadJournalEntry();
     _loadHabits();
@@ -864,6 +865,16 @@ class _HomePageState extends State<HomePage> {
         _isEditingJournal = _journalController.text.isNotEmpty;
       });
     });
+  }
+
+  Future<void> _refreshUserData() async {
+    // Force refresh the current user to get latest data
+    await _authService.currentUser?.reload();
+    if (mounted) {
+      setState(() {
+        // This will trigger a rebuild and call _getUserName() again
+      });
+    }
   }
 
   Future<void> _loadDailyQuotes() async {
@@ -910,26 +921,54 @@ class _HomePageState extends State<HomePage> {
 
   String _getUserName() {
     final user = _authService.currentUser;
+    print("🔍 Debug - Getting user name:");
+    print("   User exists: ${user != null}");
+    print("   User email: ${user?.email}");
+    print("   User displayName: '${user?.displayName}'");
+    
     if (user != null) {
       if (user.displayName != null && user.displayName!.isNotEmpty) {
         String displayName = user.displayName!.trim();
+        print("   Processing displayName: '$displayName'");
+        
+        // If the display name contains '@', it's likely an email-based name
         if (displayName.contains('@')) {
           String emailName = displayName.split('@').first;
-          return emailName[0].toUpperCase() + emailName.substring(1);
+          String result = emailName[0].toUpperCase() + emailName.substring(1);
+          print("   Email-based name result: '$result'");
+          return result;
         }
+        
+        // For proper full names from sign-up form, extract the first name
         String firstName = displayName.split(' ').first.trim();
         if (firstName.isNotEmpty) {
-          return firstName[0].toUpperCase() +
+          String result = firstName[0].toUpperCase() +
               firstName.substring(1).toLowerCase();
+          print("   First name result: '$result'");
+          return result;
         }
+        
+        // If display name doesn't have spaces, use it as is (properly capitalized)
+        String result = displayName[0].toUpperCase() + displayName.substring(1).toLowerCase();
+        print("   Single name result: '$result'");
+        return result;
       }
+      
+      // Fallback to email-based name
       if (user.email != null) {
         String emailName = user.email!.split('@').first;
-        return emailName[0].toUpperCase() +
+        String result = emailName[0].toUpperCase() +
             emailName.substring(1).toLowerCase();
+        print("   Email fallback result: '$result'");
+        return result;
       }
-      if (user.isAnonymous) return 'Guest';
+      
+      if (user.isAnonymous) {
+        print("   Anonymous user");
+        return 'Guest';
+      }
     }
+    print("   No user found, returning 'Friend'");
     return 'Friend';
   }
 

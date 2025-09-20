@@ -92,68 +92,159 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
-            'Sign Out',
-            style: TextStyle(
-              color: Color(0xFF667EEA),
-              fontWeight: FontWeight.w600,
+          backgroundColor: Colors.white,
+          elevation: 10,
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Title with icon
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF6C63FF).withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.logout_rounded,
+                    color: Color(0xFF6C63FF),
+                    size: 30,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Are you sure you want to sign out?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                // Action buttons
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF6C63FF), Color(0xFF8B5CF6)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF6C63FF).withOpacity(0.3),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                            try {
+                              await _authService.signOut();
+                              if (mounted) {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginPage(),
+                                  ),
+                                  (route) => false,
+                                );
+                              }
+                            } catch (e) {
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Failed to sign out. Please try again.'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Sign Out',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          content: const Text(
-            'Are you sure you want to sign out?',
-            style: TextStyle(color: Colors.black87),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF667EEA),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Text('Sign Out'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                try {
-                  await _authService.signOut();
-                  if (mounted) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                      (route) => false,
-                    );
-                  }
-                } catch (e) {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Failed to sign out. Please try again.'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                }
-              },
-            ),
-          ],
         );
       },
     );
@@ -186,7 +277,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            padding: const EdgeInsets.all(4), // Padding to show the gradient border
+            padding: const EdgeInsets.all(
+              4,
+            ), // Padding to show the gradient border
             child: Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -248,7 +341,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // New method to show the About Us dialog
   Future<void> _showAboutDialog() async {
-    const String aboutText = "The Great Chyren Welfare Council is dedicated to establishing the principle that our global family of humans deserves happiness, peace, and prosperity. We believe all individuals are inherently equal, transcending divisions of religion, caste, color, or creed. By providing equitable access to nutrition, housing, a disease-free environment, education, and employment, we strive to address shared human challenges and foster a harmonious, well-being-focused global family.";
+    const String aboutText =
+        "The Great Chyren Welfare Council is dedicated to establishing the principle that our global family of humans deserves happiness, peace, and prosperity. We believe all individuals are inherently equal, transcending divisions of religion, caste, color, or creed. By providing equitable access to nutrition, housing, a disease-free environment, education, and employment, we strive to address shared human challenges and foster a harmonious, well-being-focused global family.";
 
     return showDialog<void>(
       context: context,
@@ -328,7 +422,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-
   Widget _buildContactRow(String title, String content, IconData icon) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,10 +443,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 4),
               Text(
                 content,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black54,
-                ),
+                style: const TextStyle(fontSize: 14, color: Colors.black54),
               ),
             ],
           ),
@@ -399,7 +489,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       child: ClipOval(
-                        child: _buildProfileImage(isGoogleUser, profileImageUrl),
+                        child: _buildProfileImage(
+                          isGoogleUser,
+                          profileImageUrl,
+                        ),
                       ),
                     ),
                     if (!isGoogleUser)
@@ -655,7 +748,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.logout_outlined, size: 20, color: Colors.white),
+                      Icon(
+                        Icons.logout_outlined,
+                        size: 20,
+                        color: Colors.white,
+                      ),
                       SizedBox(width: 8),
                       Text(
                         'Sign Out',

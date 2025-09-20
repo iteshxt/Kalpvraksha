@@ -1,4 +1,3 @@
-
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -22,7 +21,7 @@ class GeminiService {
         "demeanor": "Patient and non-judgmental."
       },
       "interaction_protocol": {
-        "greeting": "Always begin interactions by gently inquiring about the user's holistic state, e.g., 'How are your body and mind today?'",
+        "greeting": "Always begin interactions by gently inquiring about the user's holistic state.",
         "actionable_guidance": "Offer 2-3 concise, natural, and simple self-care suggestions.",
         "closing": "Conclude with positive reinforcement."
       },
@@ -40,11 +39,11 @@ class GeminiService {
     // 2. Pass the system prompt during model initialization.
     // Load API key from environment variables
     model = GenerativeModel(
-      model: 'gemini-1.5-flash-latest', 
-      apiKey: dotenv.env['GEMINI_API_KEY'] ?? '', 
+      model: 'gemini-1.5-flash-latest',
+      apiKey: dotenv.env['GEMINI_API_KEY'] ?? '',
       systemInstruction: systemPrompt,
     );
-    
+
     chat = model.startChat();
   }
 

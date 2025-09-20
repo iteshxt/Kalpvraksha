@@ -26,7 +26,7 @@ class _ConsultantChatbotPageState extends State<ConsultantChatbotPage>
   final List<Map<String, dynamic>> _messages = [];
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
-  int _selectedTabIndex = 3; // Set to 3 for Chat tab
+  int _selectedTabIndex = 3; // Set to 3 for Chat tab (always selected on this page)
   late AnimationController _voiceAnimationController;
   late Animation<double> _voiceScaleAnimation;
   late Animation<double> _voicePulseAnimation;
@@ -254,54 +254,11 @@ Keep the tone warm, supportive, and empowering.
     return Scaffold(
       extendBody: true,
       backgroundColor: const Color(0xFFF5F5F5),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.categoryTitle,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
-              ),
-            ),
-            const Text(
-              'AI Wellness Consultant',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.black54,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: widget.categoryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              _getCategoryIcon(),
-              color: widget.categoryColor,
-              size: 20,
-            ),
-          ),
-        ],
-      ),
       body: Column(
         children: [
-          // Category info banner
+          // Status bar spacing
+          SizedBox(height: MediaQuery.of(context).padding.top),
+          // Category info banner with integrated navigation
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -313,6 +270,21 @@ Keep the tone warm, supportive, and empowering.
             ),
             child: Row(
               children: [
+                // Back button
+                Container(
+                  margin: const EdgeInsets.only(right: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.black87, size: 20),
+                    onPressed: () => Navigator.pop(context),
+                    padding: const EdgeInsets.all(8),
+                    constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+                  ),
+                ),
+                // Category icon
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -326,14 +298,42 @@ Keep the tone warm, supportive, and empowering.
                   ),
                 ),
                 const SizedBox(width: 12),
+                // Title and subtitle
                 Expanded(
-                  child: Text(
-                    'Specialized guidance for ${widget.categoryTitle.toLowerCase()}',
-                    style: const TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.categoryTitle,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      const Text(
+                        'AI Wellness Consultant',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Category icon badge (decorative)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: widget.categoryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    _getCategoryIcon(),
+                    color: widget.categoryColor,
+                    size: 20,
                   ),
                 ),
               ],
@@ -441,8 +441,8 @@ Keep the tone warm, supportive, and empowering.
 
           // Floating Voice Button
           Positioned(
-            left: MediaQuery.of(context).size.width / 2 - 35,
-            top: -15,
+            left: MediaQuery.of(context).size.width / 2 - 30,
+            top: -5,
             child: AnimatedBuilder(
               animation: _voiceAnimationController,
               builder: (context, child) {
@@ -453,8 +453,8 @@ Keep the tone warm, supportive, and empowering.
                   child: GestureDetector(
                     onTap: () => _onItemTapped(2),
                     child: Container(
-                      width: 70,
-                      height: 70,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -512,7 +512,7 @@ Keep the tone warm, supportive, and empowering.
                                   ? Icons.graphic_eq_rounded
                                   : Icons.radio_button_checked_rounded,
                               color: Colors.white,
-                              size: 30,
+                              size: 20,
                             ),
                           ),
                         ),
@@ -544,8 +544,14 @@ Keep the tone warm, supportive, and empowering.
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isSelected
-              ? Colors.black.withOpacity(0.8)
+              ? const Color(0xFF6C63FF).withOpacity(0.12)
               : Colors.transparent,
+          border: isSelected
+              ? Border.all(
+                  color: const Color(0xFF6C63FF).withOpacity(0.2),
+                  width: 1,
+                )
+              : null,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -556,8 +562,8 @@ Keep the tone warm, supportive, and empowering.
                 icon,
                 size: isSelected ? 28 : 26,
                 color: isSelected
-                    ? Colors.white
-                    : Colors.white.withOpacity(0.7),
+                    ? const Color(0xFF6C63FF)
+                    : Colors.grey.shade600,
               ),
             ),
             const SizedBox(height: 5),
@@ -567,12 +573,12 @@ Keep the tone warm, supportive, and empowering.
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 color: isSelected
-                    ? Colors.white
-                    : Colors.white.withOpacity(0.7),
+                    ? const Color(0xFF6C63FF)
+                    : Colors.grey.shade600,
                 shadows: isSelected
                     ? [
                         Shadow(
-                          color: Colors.black.withOpacity(0.3),
+                          color: const Color(0xFF6C63FF).withOpacity(0.2),
                           offset: const Offset(0, 1),
                           blurRadius: 2,
                         ),

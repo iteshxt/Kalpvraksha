@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'pages/welcome_screen.dart';
-import 'main_navigation.dart';
-import 'services/auth_service.dart';
+import 'auth_wrapper.dart';
 import 'dart:math' as math;
 
 class SplashScreen extends StatefulWidget {
@@ -116,32 +114,17 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _navigateToApp() {
-    final authService = AuthService();
-    if (authService.currentUser != null) {
-      // User is already signed in, navigate to MainNavigation
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const MainNavigation(),
-          transitionDuration: const Duration(milliseconds: 500),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-        ),
-      );
-    } else {
-      // No signed-in user, navigate to WelcomeScreen
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const WelcomeScreen(),
-          transitionDuration: const Duration(milliseconds: 500),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-        ),
-      );
-    }
+    // Navigate to AuthWrapper which will handle authentication state
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AuthWrapper(),
+        transitionDuration: const Duration(milliseconds: 500),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
   }
 
   @override

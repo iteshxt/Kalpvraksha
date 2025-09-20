@@ -854,7 +854,8 @@ class _ExplorePageState extends State<ExplorePage>
   // Sample book data with URLs
   final List<Map<String, dynamic>> books = [
     {
-      'title': 'Governing With Heart: Ahilyabai Holkar’s Vision for A Harmonious World',
+      'title':
+          'Governing With Heart: Ahilyabai Holkar’s Vision for A Harmonious World',
       'author': 'Dr. Swatantra Jain',
       'coverImage': 'assets/deviahilya.png',
       'description':
@@ -862,7 +863,8 @@ class _ExplorePageState extends State<ExplorePage>
       'url': 'https://www.flipkart.com/product/p/itme?pid=9789371431583',
     },
     {
-      'title': 'Dr. Swatantra AI A Revolutionary Kalpavriksha AI for Global Welfare',
+      'title':
+          'Dr. Swatantra AI A Revolutionary Kalpavriksha AI for Global Welfare',
       'author': 'Dr. Swatantra Jain',
       'coverImage': 'assets/swatantra_ai_book.png',
       'description':
@@ -1182,7 +1184,9 @@ class _ExplorePageState extends State<ExplorePage>
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 ),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
                   child: Image.asset(
                     book['coverImage'],
                     fit: BoxFit.cover,
@@ -1223,7 +1227,10 @@ class _ExplorePageState extends State<ExplorePage>
                     const SizedBox(height: 4),
                     Text(
                       book['author'],
-                      style: const TextStyle(fontSize: 12, color: Colors.black54),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

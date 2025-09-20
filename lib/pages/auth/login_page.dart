@@ -113,7 +113,6 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 20), // Reduced from 60 to 20
-
               // Main Card Container
               Container(
                 width: double.infinity,
@@ -240,7 +239,9 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
+                        borderRadius: BorderRadius.circular(
+                          12,
+                        ), // Reduced from 16 to 12
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -262,13 +263,19 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 12, // Reduced from 14 to 12
                           ),
                           prefixIcon: Container(
-                            margin: const EdgeInsets.all(8), // Reduced from 12 to 8
-                            padding: const EdgeInsets.all(6), // Reduced from 8 to 6
+                            margin: const EdgeInsets.all(
+                              8,
+                            ), // Reduced from 12 to 8
+                            padding: const EdgeInsets.all(
+                              6,
+                            ), // Reduced from 8 to 6
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(
                                 0.05,
                               ), // Changed to match app theme
-                              borderRadius: BorderRadius.circular(8), // Reduced from 10 to 8
+                              borderRadius: BorderRadius.circular(
+                                8,
+                              ), // Reduced from 10 to 8
                             ),
                             child: const Icon(
                               Icons.email_outlined,
@@ -287,12 +294,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     const SizedBox(height: 16), // Reduced from 20 to 16
-
                     // Password Field
                     Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
+                        borderRadius: BorderRadius.circular(
+                          12,
+                        ), // Reduced from 16 to 12
                         border: Border.all(
                           color: Colors.grey.withOpacity(
                             0.2,
@@ -314,13 +322,19 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 12, // Reduced from 14 to 12
                           ),
                           prefixIcon: Container(
-                            margin: const EdgeInsets.all(8), // Reduced from 12 to 8
-                            padding: const EdgeInsets.all(6), // Reduced from 8 to 6
+                            margin: const EdgeInsets.all(
+                              8,
+                            ), // Reduced from 12 to 8
+                            padding: const EdgeInsets.all(
+                              6,
+                            ), // Reduced from 8 to 6
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(
                                 0.05,
                               ), // Changed to match app theme
-                              borderRadius: BorderRadius.circular(8), // Reduced from 10 to 8
+                              borderRadius: BorderRadius.circular(
+                                8,
+                              ), // Reduced from 10 to 8
                             ),
                             child: const Icon(
                               Icons.lock_outline,
@@ -379,7 +393,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     const SizedBox(height: 20), // Reduced from 24 to 20
-
                     // Sign In Button
                     SizedBox(
                       width: double.infinity,
@@ -392,7 +405,9 @@ class _LoginPageState extends State<LoginPage> {
                           foregroundColor: Colors.white,
                           elevation: 0, // Removed shadow to match app theme
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ), // Reduced from 16 to 12
                           ),
                         ),
                         child: _isLoading
@@ -453,7 +468,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     const SizedBox(height: 20), // Reduced from 24 to 20
-
                     // Google Sign In Button
                     SizedBox(
                       width: double.infinity,
@@ -468,7 +482,9 @@ class _LoginPageState extends State<LoginPage> {
                             width: 1.5,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // Reduced from 16 to 12
+                            borderRadius: BorderRadius.circular(
+                              12,
+                            ), // Reduced from 16 to 12
                           ),
                           backgroundColor: Colors.white,
                         ),
@@ -504,7 +520,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     const SizedBox(height: 24), // Reduced from 32 to 24
-
                     // Sign Up Link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

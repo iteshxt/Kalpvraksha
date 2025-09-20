@@ -49,14 +49,16 @@ class _SignupPageState extends State<SignupPage> {
     });
 
     try {
+      print("🚀 Starting registration for: ${_emailController.text.trim()}");
       final result = await _authService.registerWithEmailPassword(
         _emailController.text.trim(),
         _passwordController.text,
       );
 
       if (result != null) {
-        // Update the user's display name
-        await result.user?.updateDisplayName(_nameController.text.trim());
+        // Update the user's display name using robust method
+        print("🔄 Setting display name to: ${_nameController.text.trim()}");
+        await _authService.updateUserDisplayName(_nameController.text.trim());
         print("✅ Sign-up successful!");
 
         if (mounted) {
@@ -68,9 +70,80 @@ class _SignupPageState extends State<SignupPage> {
         }
       }
     } catch (e) {
-      setState(() {
-        _errorMessage = e.toString().replaceAll('Exception: ', '');
-      });
+      print("❌ Sign-up error: ${e.toString()}");
+      
+      // Check if this is a known Firebase plugin type casting error
+      bool isTypeCastingError = e.toString().contains("List<Object?>") &&
+          (e.toString().contains("PigeonUserDetails") ||
+           e.toString().contains("PigeonUserInfo") ||
+           e.toString().contains("subtype"));
+      
+      if (isTypeCastingError) {
+        print("🔧 Handling Firebase plugin type casting error in sign-up page");
+      }
+      
+      // Check if user was actually created despite the error
+      await Future.delayed(const Duration(milliseconds: 500));
+      final currentUser = _authService.currentUser;
+      
+      if (currentUser != null && currentUser.email == _emailController.text.trim()) {
+        print("✅ User found despite error - proceeding with sign-up");
+        
+        try {
+          // Update the user's display name
+          await currentUser.updateDisplayName(_nameController.text.trim());
+        } catch (nameError) {
+          print("⚠️ Display name update error (non-critical): ${nameError.toString()}");
+          // Continue anyway - display name update is not critical
+        }
+        
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const MainNavigation()),
+          );
+          return;
+        }
+      }
+      
+      // Only show error if user wasn't actually created AND it's not a type casting error
+      if (!isTypeCastingError) {
+        setState(() {
+          _errorMessage = e.toString().replaceAll('Exception: ', '');
+        });
+      } else {
+        print("🔧 Type casting error suppressed - user should be created successfully");
+        // For type casting errors, show a generic message or try to proceed
+        setState(() {
+          _errorMessage = 'Please wait, completing registration...';
+        });
+        
+        // Try once more to check if user was created after a longer delay
+        await Future.delayed(const Duration(milliseconds: 1500));
+        final retryUser = _authService.currentUser;
+        
+        if (retryUser != null && retryUser.email == _emailController.text.trim()) {
+          print("✅ User confirmed on retry - proceeding");
+          
+          try {
+            await retryUser.updateDisplayName(_nameController.text.trim());
+          } catch (nameError) {
+            print("⚠️ Display name update error on retry (non-critical): ${nameError.toString()}");
+          }
+          
+          if (mounted) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const MainNavigation()),
+            );
+            return;
+          }
+        } else {
+          setState(() {
+            _errorMessage = 'Registration may have failed. Please try again.';
+          });
+        }
+      }
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);
@@ -130,7 +203,6 @@ class _SignupPageState extends State<SignupPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 16), // Reduced from 40 to 20
-
               // Main Card Container with enhanced lighting
               Container(
                 width: double.infinity,

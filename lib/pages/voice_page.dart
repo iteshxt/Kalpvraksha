@@ -57,7 +57,7 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _setupAnimations();
-    
+
     if (widget.startListening) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _startVoiceAssistant();
@@ -80,9 +80,18 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    _wave1 = Tween<double>(begin: 0.0, end: 2 * math.pi).animate(_waveController1);
-    _wave2 = Tween<double>(begin: 0.0, end: 2 * math.pi).animate(_waveController2);
-    _wave3 = Tween<double>(begin: 0.0, end: 2 * math.pi).animate(_waveController3);
+    _wave1 = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi,
+    ).animate(_waveController1);
+    _wave2 = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi,
+    ).animate(_waveController2);
+    _wave3 = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi,
+    ).animate(_waveController3);
 
     // Pulse animation for floating button
     _pulseController = AnimationController(
@@ -98,9 +107,10 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
       duration: const Duration(seconds: 8),
       vsync: this,
     );
-    _orbAnimation = Tween<double>(begin: 0.0, end: 2 * math.pi).animate(
-      CurvedAnimation(parent: _orbController, curve: Curves.linear),
-    );
+    _orbAnimation = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi,
+    ).animate(CurvedAnimation(parent: _orbController, curve: Curves.linear));
 
     // Breathing animation for voice button
     _breatheController = AnimationController(
@@ -124,12 +134,12 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
     _orbController.dispose();
     _breatheController.dispose();
     _scrollController.dispose();
-    
+
     // Stop voice service when leaving the page
     if (_isActive) {
       widget.voiceService.stopVoiceLoop();
     }
-    
+
     super.dispose();
   }
 
@@ -251,7 +261,7 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
             final radius = 30.0 + (index * 15);
             final x = math.cos(angle) * radius;
             final y = math.sin(angle) * radius;
-            
+
             return Positioned(
               left: MediaQuery.of(context).size.width / 2 + x - 8,
               top: 200 + y,
@@ -322,9 +332,7 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
           decoration: BoxDecoration(
             color: const Color(0xFF667EEA).withOpacity(0.1),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: const Color(0xFF667EEA).withOpacity(0.2),
-            ),
+            border: Border.all(color: const Color(0xFF667EEA).withOpacity(0.2)),
           ),
           child: const Text(
             'Tap the crystal to start conversation',
@@ -369,7 +377,9 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
               ],
             ),
             child: Icon(
-              message.isUser ? Icons.person_rounded : Icons.auto_awesome_rounded,
+              message.isUser
+                  ? Icons.person_rounded
+                  : Icons.auto_awesome_rounded,
               color: Colors.white,
               size: 24,
             ),
@@ -448,11 +458,13 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
       children: [
         // Current user transcript
         if (_userTranscript.isNotEmpty) ...[
-          _buildModernChatMessage(ChatMessage(
-            text: _userTranscript,
-            isUser: true,
-            timestamp: DateTime.now(),
-          )),
+          _buildModernChatMessage(
+            ChatMessage(
+              text: _userTranscript,
+              isUser: true,
+              timestamp: DateTime.now(),
+            ),
+          ),
         ],
         // Current AI response with typing indicator
         if (_aiResponse.isNotEmpty) ...[
@@ -532,7 +544,10 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: const Color(0xFF11998E).withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(12),
@@ -588,7 +603,9 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF667EEA).withOpacity(_isActive ? 0.6 : 0.3),
+                    color: const Color(
+                      0xFF667EEA,
+                    ).withOpacity(_isActive ? 0.6 : 0.3),
                     blurRadius: _isActive ? 30 : 20,
                     offset: const Offset(0, 8),
                     spreadRadius: _isActive ? 5 : 0,
@@ -629,16 +646,19 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
         children: [
           // Voice waves background
           _buildVoiceWaves(),
-          
+
           // Floating orbs
           if (!_isActive) _buildFloatingOrbs(),
-          
+
           Column(
             children: [
               // Minimal header
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
                   child: Row(
                     children: [
                       const Spacer(),
@@ -653,9 +673,14 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
-                              color: _isActive ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.1),
+                              color: _isActive
+                                  ? Colors.red.withOpacity(0.1)
+                                  : Colors.green.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Row(
@@ -672,7 +697,9 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
-                                    color: _isActive ? Colors.red : Colors.green,
+                                    color: _isActive
+                                        ? Colors.red
+                                        : Colors.green,
                                   ),
                                 ),
                               ],
@@ -693,7 +720,9 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.7),
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(32),
+                    ),
                     border: Border.all(
                       color: Colors.white.withOpacity(0.5),
                       width: 1,
@@ -706,16 +735,25 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
                       ),
                     ],
                   ),
-                  child: _chatMessages.isEmpty && _userTranscript.isEmpty && _aiResponse.isEmpty
+                  child:
+                      _chatMessages.isEmpty &&
+                          _userTranscript.isEmpty &&
+                          _aiResponse.isEmpty
                       ? _buildWelcomeMessage()
                       : ListView.builder(
                           controller: _scrollController,
                           physics: const BouncingScrollPhysics(),
-                          itemCount: _chatMessages.length +
-                              (_userTranscript.isNotEmpty || _aiResponse.isNotEmpty ? 1 : 0),
+                          itemCount:
+                              _chatMessages.length +
+                              (_userTranscript.isNotEmpty ||
+                                      _aiResponse.isNotEmpty
+                                  ? 1
+                                  : 0),
                           itemBuilder: (context, index) {
                             if (index < _chatMessages.length) {
-                              return _buildModernChatMessage(_chatMessages[index]);
+                              return _buildModernChatMessage(
+                                _chatMessages[index],
+                              );
                             } else {
                               return _buildCurrentConversation();
                             }
@@ -728,7 +766,9 @@ class _VoicePageState extends State<VoicePage> with TickerProviderStateMixin {
               Container(
                 height: 140,
                 alignment: Alignment.center,
-                margin: const EdgeInsets.only(bottom: 100), // Add margin to stay above nav bar
+                margin: const EdgeInsets.only(
+                  bottom: 100,
+                ), // Add margin to stay above nav bar
                 child: _buildCrystalVoiceButton(),
               ),
             ],
@@ -784,13 +824,21 @@ class VoiceWavePainter extends CustomPainter {
     _drawWave(canvas, size, paint3, wave3Value, centerY, width, 15);
   }
 
-  void _drawWave(Canvas canvas, Size size, Paint paint, double waveValue,
-      double centerY, double width, double amplitude) {
+  void _drawWave(
+    Canvas canvas,
+    Size size,
+    Paint paint,
+    double waveValue,
+    double centerY,
+    double width,
+    double amplitude,
+  ) {
     final path = Path();
     path.moveTo(0, centerY);
 
     for (double x = 0; x <= width; x += 3) {
-      final y = centerY +
+      final y =
+          centerY +
           amplitude *
               math.sin((x / width * 3 * math.pi) + waveValue) *
               math.sin((x / width * 1.5 * math.pi) + waveValue * 0.7);

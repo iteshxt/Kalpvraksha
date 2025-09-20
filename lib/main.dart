@@ -53,11 +53,15 @@ class MyApp extends StatelessWidget {
                   primaryColor: const Color(0xFF8B6EFF),
                   pageTransitionsTheme: PageTransitionsTheme(
                     builders: {
-                      TargetPlatform.android: _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.android:
+                          _NoTransitionPageTransitionsBuilder(),
                       TargetPlatform.iOS: _NoTransitionPageTransitionsBuilder(),
-                      TargetPlatform.windows: _NoTransitionPageTransitionsBuilder(),
-                      TargetPlatform.macOS: _NoTransitionPageTransitionsBuilder(),
-                      TargetPlatform.linux: _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.windows:
+                          _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.macOS:
+                          _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.linux:
+                          _NoTransitionPageTransitionsBuilder(),
                     },
                   ),
                 )
@@ -66,11 +70,15 @@ class MyApp extends StatelessWidget {
                   primaryColor: const Color(0xFFFF8F6E),
                   pageTransitionsTheme: PageTransitionsTheme(
                     builders: {
-                      TargetPlatform.android: _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.android:
+                          _NoTransitionPageTransitionsBuilder(),
                       TargetPlatform.iOS: _NoTransitionPageTransitionsBuilder(),
-                      TargetPlatform.windows: _NoTransitionPageTransitionsBuilder(),
-                      TargetPlatform.macOS: _NoTransitionPageTransitionsBuilder(),
-                      TargetPlatform.linux: _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.windows:
+                          _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.macOS:
+                          _NoTransitionPageTransitionsBuilder(),
+                      TargetPlatform.linux:
+                          _NoTransitionPageTransitionsBuilder(),
                     },
                   ),
                 ),

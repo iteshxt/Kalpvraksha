@@ -162,88 +162,95 @@ class _ChatbotPageState extends State<ChatbotPage> {
   }
 
   Widget _buildDropdownHeader() {
-  return Container(
-    padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.2))),
-    ),
-    child: Container(
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(width: 0.5, color: Colors.transparent), // Reduced from 2 to 0.5
-        gradient: LinearGradient(
-          colors: [Color(0xFF1E88E5), Color(0xFFFFC107)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Colors.grey.withOpacity(0.2))),
       ),
       child: Container(
-        margin: EdgeInsets.all(0.5), // Reduced from 2 to 0.5 to match border width
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(11.5), // Adjusted to match the thinner border
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            width: 0.5,
+            color: Colors.transparent,
+          ), // Reduced from 2 to 0.5
+          gradient: LinearGradient(
+            colors: [Color(0xFF1E88E5), Color(0xFFFFC107)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
         ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: _selectedMode,
-            onChanged: (String? newValue) {
-              if (newValue != null) {
-                setState(() {
-                  _selectedMode = newValue;
-                  if (newValue == 'Chatbot') {
-                    _conversationStarted = false;
-                    _messages.clear();
-                  }
-                });
-              }
-            },
-            isExpanded: true,
-            icon: Icon(Icons.keyboard_arrow_down, color: Colors.black87),
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
+        child: Container(
+          margin: EdgeInsets.all(
+            0.5,
+          ), // Reduced from 2 to 0.5 to match border width
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(
+              11.5,
+            ), // Adjusted to match the thinner border
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: _selectedMode,
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    _selectedMode = newValue;
+                    if (newValue == 'Chatbot') {
+                      _conversationStarted = false;
+                      _messages.clear();
+                    }
+                  });
+                }
+              },
+              isExpanded: true,
+              icon: Icon(Icons.keyboard_arrow_down, color: Colors.black87),
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+              dropdownColor: Colors.white,
+              items: [
+                DropdownMenuItem(
+                  value: 'Chatbot',
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.chat_bubble,
+                          color: Colors.black87,
+                          size: 20,
+                        ),
+                        SizedBox(width: 12),
+                        Text('AI Chatbot'),
+                      ],
+                    ),
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'Wellness Consultant',
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Row(
+                      children: [
+                        Icon(Icons.healing, color: Colors.black87, size: 20),
+                        SizedBox(width: 12),
+                        Text('Wellness Consultant'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            dropdownColor: Colors.white,
-            items: [
-              DropdownMenuItem(
-                value: 'Chatbot',
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.chat_bubble,
-                        color: Colors.black87,
-                        size: 20,
-                      ),
-                      SizedBox(width: 12),
-                      Text('AI Chatbot'),
-                    ],
-                  ),
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Wellness Consultant',
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    children: [
-                      Icon(Icons.healing, color: Colors.black87, size: 20),
-                      SizedBox(width: 12),
-                      Text('Wellness Consultant'),
-                    ],
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildWellnessInterface() {
     return Container(
