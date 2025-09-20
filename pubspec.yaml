@@ -62,6 +62,7 @@ flutter:
     - assets/deviahilya.png
     - assets/swatantra_ai_book.png
     - assets/universal_prosperity.png
+    - assets/timeless_path.png
 
 # Flutter Launcher Icons configuration
 flutter_launcher_icons:
