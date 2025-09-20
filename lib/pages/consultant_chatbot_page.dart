@@ -26,7 +26,8 @@ class _ConsultantChatbotPageState extends State<ConsultantChatbotPage>
   final List<Map<String, dynamic>> _messages = [];
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
-  int _selectedTabIndex = 3; // Set to 3 for Chat tab (always selected on this page)
+  int _selectedTabIndex =
+      3; // Set to 3 for Chat tab (always selected on this page)
   late AnimationController _voiceAnimationController;
   late Animation<double> _voiceScaleAnimation;
   late Animation<double> _voicePulseAnimation;
@@ -278,10 +279,17 @@ Keep the tone warm, supportive, and empowering.
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.black87, size: 20),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black87,
+                      size: 20,
+                    ),
                     onPressed: () => Navigator.pop(context),
                     padding: const EdgeInsets.all(8),
-                    constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+                    constraints: const BoxConstraints(
+                      minWidth: 36,
+                      minHeight: 36,
+                    ),
                   ),
                 ),
                 // Category icon

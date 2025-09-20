@@ -215,7 +215,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               if (mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text('Failed to sign out. Please try again.'),
+                                    content: Text(
+                                      'Failed to sign out. Please try again.',
+                                    ),
                                     backgroundColor: Colors.red,
                                   ),
                                 );

@@ -61,11 +61,11 @@ class AuthService {
     } catch (e) {
       // Special handling for type casting errors from Flutter plugin
       if (e.toString().contains("List<Object?>") &&
-          (e.toString().contains("PigeonUserDetails") || 
-           e.toString().contains("PigeonUserInfo") ||
-           e.toString().contains("subtype"))) {
+          (e.toString().contains("PigeonUserDetails") ||
+              e.toString().contains("PigeonUserInfo") ||
+              e.toString().contains("subtype"))) {
         print("🔧 Handling type casting error: ${e.toString()}");
-        
+
         // Wait a bit for Firebase to update
         await Future.delayed(const Duration(milliseconds: 800));
 
@@ -344,16 +344,16 @@ class AuthService {
         return true;
       } catch (e) {
         print("⚠️ First attempt failed: ${e.toString()}");
-        
+
         // Check if it's a type casting error
-        if (e.toString().contains("List<Object?>") && 
-            (e.toString().contains("PigeonUserInfo") || 
-             e.toString().contains("PigeonUserDetails"))) {
+        if (e.toString().contains("List<Object?>") &&
+            (e.toString().contains("PigeonUserInfo") ||
+                e.toString().contains("PigeonUserDetails"))) {
           print("🔧 Type casting error detected, trying retry...");
-          
+
           // Wait and retry
           await Future.delayed(const Duration(milliseconds: 1000));
-          
+
           try {
             await user.updateDisplayName(displayName);
             await user.reload();
@@ -361,10 +361,10 @@ class AuthService {
             return true;
           } catch (retryError) {
             print("⚠️ Retry also failed: ${retryError.toString()}");
-            
+
             // Final attempt with longer delay
             await Future.delayed(const Duration(milliseconds: 2000));
-            
+
             try {
               await user.updateDisplayName(displayName);
               await user.reload();

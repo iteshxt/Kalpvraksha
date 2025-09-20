@@ -71,32 +71,36 @@ class _SignupPageState extends State<SignupPage> {
       }
     } catch (e) {
       print("❌ Sign-up error: ${e.toString()}");
-      
+
       // Check if this is a known Firebase plugin type casting error
-      bool isTypeCastingError = e.toString().contains("List<Object?>") &&
+      bool isTypeCastingError =
+          e.toString().contains("List<Object?>") &&
           (e.toString().contains("PigeonUserDetails") ||
-           e.toString().contains("PigeonUserInfo") ||
-           e.toString().contains("subtype"));
-      
+              e.toString().contains("PigeonUserInfo") ||
+              e.toString().contains("subtype"));
+
       if (isTypeCastingError) {
         print("🔧 Handling Firebase plugin type casting error in sign-up page");
       }
-      
+
       // Check if user was actually created despite the error
       await Future.delayed(const Duration(milliseconds: 500));
       final currentUser = _authService.currentUser;
-      
-      if (currentUser != null && currentUser.email == _emailController.text.trim()) {
+
+      if (currentUser != null &&
+          currentUser.email == _emailController.text.trim()) {
         print("✅ User found despite error - proceeding with sign-up");
-        
+
         try {
           // Update the user's display name
           await currentUser.updateDisplayName(_nameController.text.trim());
         } catch (nameError) {
-          print("⚠️ Display name update error (non-critical): ${nameError.toString()}");
+          print(
+            "⚠️ Display name update error (non-critical): ${nameError.toString()}",
+          );
           // Continue anyway - display name update is not critical
         }
-        
+
         if (mounted) {
           Navigator.pushReplacement(
             context,
@@ -105,32 +109,37 @@ class _SignupPageState extends State<SignupPage> {
           return;
         }
       }
-      
+
       // Only show error if user wasn't actually created AND it's not a type casting error
       if (!isTypeCastingError) {
         setState(() {
           _errorMessage = e.toString().replaceAll('Exception: ', '');
         });
       } else {
-        print("🔧 Type casting error suppressed - user should be created successfully");
+        print(
+          "🔧 Type casting error suppressed - user should be created successfully",
+        );
         // For type casting errors, show a generic message or try to proceed
         setState(() {
           _errorMessage = 'Please wait, completing registration...';
         });
-        
+
         // Try once more to check if user was created after a longer delay
         await Future.delayed(const Duration(milliseconds: 1500));
         final retryUser = _authService.currentUser;
-        
-        if (retryUser != null && retryUser.email == _emailController.text.trim()) {
+
+        if (retryUser != null &&
+            retryUser.email == _emailController.text.trim()) {
           print("✅ User confirmed on retry - proceeding");
-          
+
           try {
             await retryUser.updateDisplayName(_nameController.text.trim());
           } catch (nameError) {
-            print("⚠️ Display name update error on retry (non-critical): ${nameError.toString()}");
+            print(
+              "⚠️ Display name update error on retry (non-critical): ${nameError.toString()}",
+            );
           }
-          
+
           if (mounted) {
             Navigator.pushReplacement(
               context,

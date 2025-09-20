@@ -698,7 +698,8 @@ class QuoteService {
   static const String _quotesKey = 'daily_quotes';
   static const String _lastFetchKey = 'last_fetch_date';
   static const String _batchIndexKey = 'quote_batch_index';
-  static const String _jsonFilePath = 'assets/quotes.json'; // Path to your JSON file
+  static const String _jsonFilePath =
+      'assets/quotes.json'; // Path to your JSON file
 
   static Future<List<Map<String, String>>> _fetchQuotesFromFile() async {
     try {
@@ -765,23 +766,28 @@ class QuoteService {
   static List<Map<String, String>> _getFallbackQuotes() {
     return [
       {
-        'quote': 'Your mind is a garden where thoughts bloom into reality. Plant seeds of positivity today.',
+        'quote':
+            'Your mind is a garden where thoughts bloom into reality. Plant seeds of positivity today.',
         'author': 'Dr. Marina Wellness',
       },
       {
-        'quote': 'Every breath is a new beginning, every moment a chance to choose peace over chaos.',
+        'quote':
+            'Every breath is a new beginning, every moment a chance to choose peace over chaos.',
         'author': 'Chen Mindful',
       },
       {
-        'quote': 'Healing happens in the spaces between thoughts, in the silence between heartbeats.',
+        'quote':
+            'Healing happens in the spaces between thoughts, in the silence between heartbeats.',
         'author': 'Dr. Alexander Serenity',
       },
       {
-        'quote': 'Your wellness journey is not about perfection, but about progress and self-compassion.',
+        'quote':
+            'Your wellness journey is not about perfection, but about progress and self-compassion.',
         'author': 'Sofia Brightpath',
       },
       {
-        'quote': 'In the orchestra of life, your mental health sets the rhythm for everything else.',
+        'quote':
+            'In the orchestra of life, your mental health sets the rhythm for everything else.',
         'author': 'Dr. Michael Innerpeace',
       },
     ];
@@ -925,12 +931,12 @@ class _HomePageState extends State<HomePage> {
     print("   User exists: ${user != null}");
     print("   User email: ${user?.email}");
     print("   User displayName: '${user?.displayName}'");
-    
+
     if (user != null) {
       if (user.displayName != null && user.displayName!.isNotEmpty) {
         String displayName = user.displayName!.trim();
         print("   Processing displayName: '$displayName'");
-        
+
         // If the display name contains '@', it's likely an email-based name
         if (displayName.contains('@')) {
           String emailName = displayName.split('@').first;
@@ -938,31 +944,33 @@ class _HomePageState extends State<HomePage> {
           print("   Email-based name result: '$result'");
           return result;
         }
-        
+
         // For proper full names from sign-up form, extract the first name
         String firstName = displayName.split(' ').first.trim();
         if (firstName.isNotEmpty) {
-          String result = firstName[0].toUpperCase() +
-              firstName.substring(1).toLowerCase();
+          String result =
+              firstName[0].toUpperCase() + firstName.substring(1).toLowerCase();
           print("   First name result: '$result'");
           return result;
         }
-        
+
         // If display name doesn't have spaces, use it as is (properly capitalized)
-        String result = displayName[0].toUpperCase() + displayName.substring(1).toLowerCase();
+        String result =
+            displayName[0].toUpperCase() +
+            displayName.substring(1).toLowerCase();
         print("   Single name result: '$result'");
         return result;
       }
-      
+
       // Fallback to email-based name
       if (user.email != null) {
         String emailName = user.email!.split('@').first;
-        String result = emailName[0].toUpperCase() +
-            emailName.substring(1).toLowerCase();
+        String result =
+            emailName[0].toUpperCase() + emailName.substring(1).toLowerCase();
         print("   Email fallback result: '$result'");
         return result;
       }
-      
+
       if (user.isAnonymous) {
         print("   Anonymous user");
         return 'Guest';
@@ -1017,7 +1025,9 @@ class _HomePageState extends State<HomePage> {
     final habitsData = prefs.getStringList(_habitsKey);
 
     if (habitsData != null) {
-      _habits = habitsData.map((e) => json.decode(e) as Map<String, dynamic>).toList();
+      _habits = habitsData
+          .map((e) => json.decode(e) as Map<String, dynamic>)
+          .toList();
 
       if (lastResetDate != today) {
         for (var habit in _habits) {
@@ -1052,6 +1062,7 @@ class _HomePageState extends State<HomePage> {
     });
     _saveHabits();
   }
+
   void _deleteHabit(int index) {
     setState(() {
       _habits.removeAt(index);
@@ -1285,7 +1296,11 @@ class _HomePageState extends State<HomePage> {
             children: [
               Row(
                 children: const [
-                  Icon(Icons.check_circle_outline, color: Color(0xFF00B0FF), size: 20),
+                  Icon(
+                    Icons.check_circle_outline,
+                    color: Color(0xFF00B0FF),
+                    size: 20,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'Daily Habits',
@@ -1298,7 +1313,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.add_circle_outline, color: Color(0xFF00B0FF)),
+                icon: const Icon(
+                  Icons.add_circle_outline,
+                  color: Color(0xFF00B0FF),
+                ),
                 onPressed: _showAddHabitDialog,
               ),
             ],
@@ -1318,7 +1336,10 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: _showAddHabitDialog,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF00B0FF).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(20),
@@ -1354,14 +1375,22 @@ class _HomePageState extends State<HomePage> {
                               width: 24,
                               height: 24,
                               decoration: BoxDecoration(
-                                color: habit['isCompleted'] ? const Color(0xFF00B0FF) : Colors.white,
+                                color: habit['isCompleted']
+                                    ? const Color(0xFF00B0FF)
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                  color: habit['isCompleted'] ? Colors.transparent : Colors.grey.shade300,
+                                  color: habit['isCompleted']
+                                      ? Colors.transparent
+                                      : Colors.grey.shade300,
                                 ),
                               ),
                               child: habit['isCompleted']
-                                  ? const Icon(Icons.check, size: 16, color: Colors.white)
+                                  ? const Icon(
+                                      Icons.check,
+                                      size: 16,
+                                      color: Colors.white,
+                                    )
                                   : null,
                             ),
                           ),
@@ -1371,14 +1400,21 @@ class _HomePageState extends State<HomePage> {
                               habit['title'],
                               style: TextStyle(
                                 fontSize: 16,
-                                color: habit['isCompleted'] ? Colors.black54 : Colors.black87,
-                                decoration: habit['isCompleted'] ? TextDecoration.lineThrough : null,
+                                color: habit['isCompleted']
+                                    ? Colors.black54
+                                    : Colors.black87,
+                                decoration: habit['isCompleted']
+                                    ? TextDecoration.lineThrough
+                                    : null,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            icon: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.red,
+                            ),
                             onPressed: () => _deleteHabit(index),
                           ),
                         ],
@@ -1386,7 +1422,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-                
+
                 const SizedBox(height: 20),
 
                 // Progress bar and text below habits
@@ -1405,7 +1441,10 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 6),
                     Text(
                       '$completedHabits/${_habits.length} completed',
-                      style: const TextStyle(fontSize: 12, color: Colors.black54),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
                     ),
                   ],
                 ),
@@ -1496,7 +1535,11 @@ class _HomePageState extends State<HomePage> {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.edit_note, color: Color(0xFFFF9800), size: 20),
+                  const Icon(
+                    Icons.edit_note,
+                    color: Color(0xFFFF9800),
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   const Text(
                     'Journal Reflection',
@@ -1518,7 +1561,11 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.grey.shade300),
                     ),
-                    child: const Icon(Icons.check, size: 20, color: Color(0xFF4CAF50)),
+                    child: const Icon(
+                      Icons.check,
+                      size: 20,
+                      color: Color(0xFF4CAF50),
+                    ),
                   ),
                 ),
             ],
